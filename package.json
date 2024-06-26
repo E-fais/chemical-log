@@ -1,0 +1,15 @@
+{
+  "name": "chemicals-expiry-update",
+  "productName": "Chemical Log",
+  "version": "1.0.0",
+  "description": "App that notify to remove expired chemicals",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "Fais Edathil",
+  "license": "MIT",
+  "dependencies": {
+    "electron": "^31.0.2"
+  }
+}
