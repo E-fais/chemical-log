@@ -29,6 +29,33 @@ ipcMain.on('save-chemical', (event, chemical) => {
 
     fs.writeFileSync(filePath, JSON.stringify(chemicals, null, 2));
 });
+ipcMain.on('request-chemicals', (event) => {
+    const filePath = path.join(app.getPath('userData'), 'chemicals.json');
+    let chemicals = [];
+
+    if (fs.existsSync(filePath)) {
+        const data = fs.readFileSync(filePath);
+        chemicals = JSON.parse(data);
+    }
+
+
+    event.sender.send('load-chemicals', chemicals);
+});
+ipcMain.on('delete-chemical', (event, index) => {
+    const filePath = path.join(app.getPath('userData'), 'chemicals.json');
+    let chemicals = [];
+
+    if (fs.existsSync(filePath)) {
+        const data = fs.readFileSync(filePath);
+        chemicals = JSON.parse(data);
+    }
+
+    chemicals.splice(index, 1); // Remove the chemical at the given index
+
+    fs.writeFileSync(filePath, JSON.stringify(chemicals, null, 2));
+
+    event.sender.send('load-chemicals', chemicals);
+});
 
 app.whenReady().then(() => {
     createWindow()
